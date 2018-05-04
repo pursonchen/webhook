@@ -35,11 +35,11 @@ http.createServer(function (req, res) {
       return ;
      }
     //自动部署
-    const project = params.project.name.toString().trim();
-    const branch = params.ref.replace('refs/heads/', '').toString().trim();
-    const author = params.user.username.toString().trim();
-    const message = params.commits[0].message.toString().trim();
-    console.log(`项目${project}的有代码push，提交人：${author}，注释：${message}`);
+    const project = params.repository.name.toString().trim();
+    // const branch = params.ref.replace('refs/heads/', '').toString().trim();
+    const author = params.repository.owner.login.toString().trim();
+    // const message = params.commits[0].message.toString().trim();
+    console.log(`项目${project}的有代码push，提交人：${author}`);
 
 
  
