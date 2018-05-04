@@ -2,6 +2,11 @@ const http = require('http');
 const url = require('url');
 const qs = require('querystring');
 const exec = require('child_process').exec;
+const crypto = require('crypto');
+//github 的secret
+const GITHUB_WEBHOOK_SECRET = 'vo87lf78LGYJFVu6D';
+
+
  
 http.createServer(function (req, res) {
   req.setEncoding('utf-8');
@@ -10,13 +15,26 @@ http.createServer(function (req, res) {
     postData += postDataChunk;
     console.log(postData);
   });
+
   req.addListener('end', function () {
     const params = Object.assign({}, JSON.parse(postData), qs.parse(url.parse(req.url).query));
-    const password = params.password || '';
-    if (password !== 'vo87lf78LGYJFVu6D') {
-      console.log('密码不正确');
-      return;
-    }
+   
+    //验证secret
+    const hmac = crypto.createHmac('sha1', GITHUB_WEBHOOK_SECRET);
+    const ourSignature = `sha1=${hmac.update(postData).digest('hex')}`;
+    const theirSignature = req.get('X-Hub-Signature');
+
+    const bufferA = Buffer.from(ourSignature, 'utf8');
+    const bufferB = Buffer.from(theirSignature, 'utf8');
+
+    const safe = crypto.timingSafeEqual(bufferA, bufferB);
+
+    if（!safe)
+     {
+      console.log('secret not match!')
+      return ;
+     }
+    //自动部署
     const project = params.project.name.toString().trim();
     const branch = params.ref.replace('refs/heads/', '').toString().trim();
     const author = params.user.username.toString().trim();
