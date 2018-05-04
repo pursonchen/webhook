@@ -29,7 +29,7 @@ http.createServer(function (req, res) {
 
     const safe = crypto.timingSafeEqual(bufferA, bufferB);
 
-    if（safe === false)
+    if(!safe)
      {
       console.log('secret not match!')
       return ;
