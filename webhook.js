@@ -9,9 +9,6 @@ const GITHUB_WEBHOOK_SECRET = 'vo87lf78LGYJFVu6D';
 
  
 http.createServer(function (req, res) {
-    
-  const theirSignature = req.headers['X-Hub-Signature'];
-
   req.setEncoding('utf-8');
   var postData = '';
   req.addListener('data', function (postDataChunk) {
@@ -25,8 +22,10 @@ http.createServer(function (req, res) {
     //验证secret
     const hmac = crypto.createHmac('sha1', GITHUB_WEBHOOK_SECRET);
     const ourSignature = `sha1=${hmac.update(postData).digest('hex')}`;
+    console.log(req.headers);
+    const theirSignature = req.headers['X-Hub-Signature'];
 
-   console.log(theirSignature);
+    console.log(theirSignature);
     const bufferA = Buffer.from(ourSignature, 'utf8');
     const bufferB = Buffer.from(theirSignature, 'utf8');
 
