@@ -23,8 +23,8 @@ http.createServer(function (req, res) {
 
 
  
-      let cmd = `cd /srv/${project} && git pull`;
-      cmd += 'yarn && yarn doc && yarn build-test && pm2 startOrReload pm2.test.json';
+      let cmd = `cd /srv/${project} && git pull &&`;
+      cmd += 'yarn && yarn doc && yarn build-test && pm2 startOrReload pm2.json';
       console.log('cmd: ', cmd);
       exec(cmd, function (error, stdout, stderr) {
         console.log('error =>', error);
