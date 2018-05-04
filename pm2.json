@@ -1,0 +1,15 @@
+{
+"app": [
+    {
+      "name": "kiskis-webhook",
+      "script": "webhook.js",
+      "cwd": "./",
+      "exec_mode": "fork",
+      "instances": 1,
+      "max_memory_restart": "128M",
+      "autorestart": true,
+      "args": [],
+      "env": {}
+    }
+  ]
+}
