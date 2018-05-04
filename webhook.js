@@ -13,7 +13,7 @@ http.createServer(function (req, res) {
   var postData = '';
   req.addListener('data', function (postDataChunk) {
     postData += postDataChunk;
-    console.log(postData);
+    // console.log(postData);
   });
 
   req.addListener('end', function () {
@@ -44,7 +44,7 @@ http.createServer(function (req, res) {
 
  
       let cmd = `cd /srv/${project} && git pull &&`;
-      cmd += 'yarn && yarn doc && yarn build-test && pm2 startOrReload pm2.json';
+      cmd += ' pm2 startOrReload pm2.json';
       console.log('cmd: ', cmd);
       exec(cmd, function (error, stdout, stderr) {
         console.log('error =>', error);
