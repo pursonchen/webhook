@@ -2,12 +2,13 @@ const http = require('http');
 const url = require('url');
 const qs = require('querystring');
 const exec = require('child_process').exec;
-try {
+ 
 http.createServer(function (req, res) {
   req.setEncoding('utf-8');
   var postData = '';
   req.addListener('data', function (postDataChunk) {
     postData += postDataChunk;
+    console.log(postData);
   });
   req.addListener('end', function () {
     const params = Object.assign({}, JSON.parse(postData), qs.parse(url.parse(req.url).query));
@@ -38,7 +39,5 @@ http.createServer(function (req, res) {
   });
 
 }).listen(6666, '127.0.0.1');
-} catch(e) {
-  console.log(e);
-}
+
 console.log('start server');
