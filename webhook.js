@@ -22,7 +22,7 @@ http.createServer(function (req, res) {
     //验证secret
     const hmac = crypto.createHmac('sha1', GITHUB_WEBHOOK_SECRET);
     const ourSignature = `sha1=${hmac.update(postData).digest('hex')}`;
-    const theirSignature = req.get('X-Hub-Signature');
+    const theirSignature = req.headers['X-Hub-Signature'];
 
     const bufferA = Buffer.from(ourSignature, 'utf8');
     const bufferB = Buffer.from(theirSignature, 'utf8');
