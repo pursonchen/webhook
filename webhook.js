@@ -24,6 +24,7 @@ http.createServer(function (req, res) {
     const ourSignature = `sha1=${hmac.update(postData).digest('hex')}`;
     const theirSignature = req.headers['X-Hub-Signature'];
 
+   console.log(theirSignature);
     const bufferA = Buffer.from(ourSignature, 'utf8');
     const bufferB = Buffer.from(theirSignature, 'utf8');
 
