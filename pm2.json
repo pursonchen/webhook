@@ -1,7 +1,7 @@
 {
 "app": [
     {
-      "name": "kiskis-webhook",
+      "name": "webhook",
       "script": "webhook.js",
       "cwd": "./",
       "exec_mode": "fork",
